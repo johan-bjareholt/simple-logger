@@ -15,7 +15,6 @@ int log_init(int loglvl=INFO){
 	logfile = fopen(logfilename,"w");
 	// Set loglevel
 	log_level = loglvl;
-	printf("%i\n", log_level);
 }
 
 void log_close(){
