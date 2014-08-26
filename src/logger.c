@@ -11,10 +11,14 @@ int log_init(int loglvl=INFO){
 	// Set logfile name and location
 	char logfilename[50];
 	strftime(logfilename,50,"./logs/%c", timeinfo);
-	// Open logfile
-	logfile = fopen(logfilename,"w");
 	// Set loglevel
 	log_level = loglvl;
+	// Open logfile
+	logfile = fopen(logfilename,"w");
+	if (logfile == NULL){
+		printf("Error opening logfile!\nDisabling logging\n");
+		loglevel = 5;
+	}
 }
 
 void log_close(){
