@@ -1,10 +1,7 @@
 #include "logger.h"
 
-#include <stdio.h>
-#include <time.h>
 
-
-int log_init(int loglvl=INFO){
+int log_init(int loglvl){
 	// Get current time
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);
@@ -17,7 +14,7 @@ int log_init(int loglvl=INFO){
 	logfile = fopen(logfilename,"w");
 	if (logfile == NULL){
 		printf("Error opening logfile!\nDisabling logging\n");
-		loglevel = 5;
+		log_level = 5;
 	}
 }
 
@@ -25,8 +22,12 @@ void log_close(){
 	fclose(logfile);
 }
 
+int main(){
+	return 0;
+}
 
-static void echo_log_message(Severity severity, const char* message){
+
+static void echo_log_message(int severity, const char* message){
 	if (log_level >= severity){
 		char full_message[255];
 		// Prepend loglevel and timestamp to message
