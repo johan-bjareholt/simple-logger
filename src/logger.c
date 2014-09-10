@@ -22,10 +22,6 @@ void log_close(){
 	fclose(logfile);
 }
 
-int main(){
-	return 0;
-}
-
 
 static void echo_log_message(int severity, const char* message){
 	if (log_level >= severity){
