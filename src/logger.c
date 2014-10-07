@@ -2,6 +2,9 @@
 
 
 int log_init(int loglvl){
+	// Output settings
+	logfile_output = true;
+	stdout_output = false;
 	// Get current time
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);

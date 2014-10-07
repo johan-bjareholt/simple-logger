@@ -1,3 +1,10 @@
+#ifndef LOGGER_H_INCLUDED
+#define LOGGER_H_INCLUDED
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdio.h>
 #include <time.h>
 #include <stdbool.h>
@@ -15,13 +22,12 @@ enum Severity {
 	CRITICAL = 4,
 };
 
-
 int log_level;
 
 FILE * logfile;
 
-bool logfile_output = true;
-bool stdout_output = false;
+bool logfile_output;
+bool stdout_output;
 
 time_t rawtime;
 struct tm * timeinfo;
@@ -39,3 +45,9 @@ void log_info(const char* message);
 void log_warning(const char* message);
 void log_error(const char* message);
 void log_critical(const char* message);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif
