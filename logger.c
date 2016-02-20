@@ -1,10 +1,23 @@
 #include "logger.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include <string.h>
+
+// Output settings
+bool logfile_output = false;
+bool stdout_output = true;
+// Time variables
+time_t rawtime;
+struct tm * timeinfo;
+// Loglevel
+int log_level;
+// Logfilepointer
+FILE * logfile = NULL;
 
 int log_init(int loglvl){
-	// Output settings
-	logfile_output = true;
-	stdout_output = false;
 	// Get current time
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);
@@ -15,20 +28,21 @@ int log_init(int loglvl){
 	log_level = loglvl;
 	// Open logfile
 	logfile = fopen(logfilename,"w");
-	if (logfile == NULL){
+	if (logfile_output && logfile == NULL){
 		printf("Error opening logfile!\nDisabling logging\n");
 		log_level = 5;
 	}
 }
 
 void log_close(){
-	fclose(logfile);
+	if (logfile != NULL)
+		fclose(logfile);
 }
 
 
 static void echo_log_message(int severity, const char* message){
 	if (log_level >= severity){
-		char full_message[255];
+		char full_message[strlen(message)+20];
 		// Prepend loglevel and timestamp to message
 		switch(severity){
 			case DEBUG:
@@ -76,3 +90,7 @@ void log_error(const char* message){
 void log_critical(const char* message){
 	echo_log_message(CRITICAL, message);
 }
+
+#ifdef __cplusplus
+}
+#endif

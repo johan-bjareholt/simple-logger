@@ -1,12 +1,17 @@
 
 CC = gcc
-FLAGS = -c -std=c11
-INCLUDE = -I./src/ -I./include/
-SRC = src/logger.c
+CXX = g++
+FLAGS = -g
+SRC = logger.c
+OUT = logger.o
 
 all:
-	mkdir -p obj
-	$(CC) $(FLAGS) $(INCLUDE) $(SRC) -o obj/logger.o
+	$(CC) -std=c11 $(FLAGS) $(INCLUDE) $(SRC) -c -o $(OUT)
+
+cpp:
+	$(CXX) -std=c++11 $(FLAGS) $(INCLUDE) $(SRC) -c -o $(OUT)
 
 clean:
-	rm -r obj
+	rm $(OUT)
+
+.PHONY: all cpp clean
